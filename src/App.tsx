@@ -1,47 +1,8 @@
-import { Input, Stack, Text } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-import { io } from 'socket.io-client';
-
-const socket = io('http://127.0.0.1:5000');
-
-interface IUser {
-  name: string;
-  id: string;
-}
+import { Stack, Text } from '@chakra-ui/react';
+import { useSocket } from './hooks/useSocket';
 
 const Home = () => {
-  const [isConnected, setIsConnected] = useState(socket.connected);
-  const [name, setName] = useState('');
-  const [userList, setUserList] = useState<IUser[]>([]);
-
-  useEffect(() => {
-    socket.on('connect', () => {
-      setIsConnected(true);
-    });
-
-    socket.on('registered', (arg) => {
-      setName(arg.name);
-    });
-
-    socket.on('clients', (arg) => {
-      setUserList(arg);
-    });
-
-    socket.on('disconnect', () => {
-      console.log('disconnect');
-      setIsConnected(false);
-    });
-
-    return () => {
-      socket.off('connect');
-      socket.off('disconnect');
-      socket.off('pong');
-    };
-  }, []);
-
-  const handleRename = () => {
-    socket.emit('rename', { name });
-  };
+  const { user, isConnected, userList } = useSocket();
 
   return (
     <Stack
@@ -58,13 +19,11 @@ const Home = () => {
 
       {isConnected ? <h1>Connected</h1> : <h1>Disconnected</h1>}
 
-      <Input
-        type='text'
-        value={name}
-        onChange={(e) => setName(e.target.value)}
-        placeholder='Informe seu nome...'
-      />
-      <button onClick={() => handleRename()}>Mudar apelido</button>
+      <Text fontSize='2xl' fontWeight='600' textAlign='center'>
+        Seu nome é {user && user.name}
+      </Text>
+
+      {/* <Input type='text' value={user && user.name} placeholder='Informe seu nome...' /> */}
 
       <Text>Usuários online</Text>
       {userList.map((u) => (
