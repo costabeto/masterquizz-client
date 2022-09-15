@@ -9,12 +9,12 @@ export const theme = extendTheme(
     variant: 'solid',
   }),
   withDefaultColorScheme({
-    colorScheme: 'purple',
+    colorScheme: 'pink',
   }),
   {
     fonts: {
-      heading: 'Roboto',
-      body: 'Roboto',
+      heading: 'Roboto, sans-serif',
+      body: 'Roboto, sans-serif',
     },
     styles: {
       global: {
@@ -22,7 +22,7 @@ export const theme = extendTheme(
           boxSizing: 'border-box',
         },
         'html, body': {
-          bg: 'gray.700',
+          bg: 'pink.600',
           color: 'gray.200',
           fontWeight: 300,
         },
