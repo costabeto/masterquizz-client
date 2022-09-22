@@ -1,3 +1,5 @@
+import { useToast } from '@chakra-ui/react';
+import { faker } from '@faker-js/faker';
 import {
   createContext,
   ReactNode,
@@ -5,15 +7,9 @@ import {
   useEffect,
   useState,
 } from 'react';
-import { useToast } from '@chakra-ui/react';
-import { v4 } from 'uuid';
 import { io, Socket } from 'socket.io-client';
-import { faker } from '@faker-js/faker';
-
-interface IUser {
-  name: string;
-  id: string;
-}
+import { v4 } from 'uuid';
+import { IRound, IRoundResult, IUser } from '../DTOs';
 
 interface ISocketProviderProps {
   children: ReactNode;
@@ -24,12 +20,18 @@ interface SocketContextData {
   socket: Socket;
   isConnected: boolean;
   userList: IUser[];
+  currentRound: IRound | null;
+  roundResult: IRoundResult | null;
+  gameResult: IRoundResult[] | null;
 }
 
 const SocketContext = createContext<SocketContextData>({} as SocketContextData);
 
 const SocketProvider = ({ children }: ISocketProviderProps) => {
   const [isConnected, setIsConnected] = useState(false);
+  const [currentRound, setCurrentRound] = useState<IRound | null>(null);
+  const [roundResult, setRoundResult] = useState<IRoundResult | null>(null);
+  const [gameResult, setGameResult] = useState<IRoundResult[] | null>(null);
   const [user] = useState<IUser>(() => {
     const localUser = localStorage.getItem('@mq-user');
 
@@ -46,11 +48,10 @@ const SocketProvider = ({ children }: ISocketProviderProps) => {
 
     return JSON.parse(localUser) as IUser;
   });
-
   const [userList, setUserList] = useState<IUser[]>([]);
 
   const toast = useToast({
-    position: 'top-right',
+    position: 'top-left',
   });
 
   const [socket] = useState(() => {
@@ -75,8 +76,19 @@ const SocketProvider = ({ children }: ISocketProviderProps) => {
     });
 
     socket.on('client-list', (arg: IUser[]) => {
-      console.log('arg', arg);
       setUserList(arg);
+    });
+
+    socket.on('begin-round', (arg: IRound) => {
+      setCurrentRound(arg);
+    });
+
+    socket.on('round-result', (arg: IRoundResult) => {
+      setRoundResult(arg);
+    });
+
+    socket.on('game-result', (arg: IRoundResult[]) => {
+      setGameResult(arg);
     });
 
     socket.on('disconnect', () => {
@@ -89,13 +101,27 @@ const SocketProvider = ({ children }: ISocketProviderProps) => {
 
     return () => {
       socket.off('connect');
+      socket.off('client-list');
+      socket.off('begin-round');
+      socket.off('round-result');
+      socket.off('game-result');
       socket.off('disconnect');
       socket.off('pong');
     };
   }, [socket, toast]);
 
   return (
-    <SocketContext.Provider value={{ socket, isConnected, user, userList }}>
+    <SocketContext.Provider
+      value={{
+        gameResult,
+        roundResult,
+        currentRound,
+        socket,
+        isConnected,
+        user,
+        userList,
+      }}
+    >
       {children}
     </SocketContext.Provider>
   );
