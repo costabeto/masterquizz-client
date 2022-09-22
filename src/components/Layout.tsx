@@ -1,4 +1,4 @@
-import { Flex, Stack } from '@chakra-ui/react';
+import { Flex } from '@chakra-ui/react';
 import { ReactNode } from 'react';
 import Header from './Header';
 
@@ -8,9 +8,9 @@ interface ILayoutProps {
 
 const Layout = ({ children }: ILayoutProps) => {
   return (
-    <Stack
+    <Flex
       direction='column'
-      justify='flex-start'
+      justify='space-between'
       align='center'
       w='100vw'
       h='100vh'
@@ -28,7 +28,7 @@ const Layout = ({ children }: ILayoutProps) => {
       >
         {children}
       </Flex>
-    </Stack>
+    </Flex>
   );
 };
 

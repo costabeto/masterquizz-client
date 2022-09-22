@@ -26,6 +26,9 @@ export const theme = extendTheme(
           color: 'gray.200',
           fontWeight: 300,
         },
+        input: {
+          color: 'gray.600',
+        },
       },
     },
   }
