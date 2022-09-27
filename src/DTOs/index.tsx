@@ -15,7 +15,11 @@ export interface IRoundResult {
 	answers: IRoundResultAnswer[];
 }
 
+export interface IOption {
+	[x: string]: string;
+}
+
 export interface IRound {
 	question: string;
-	options: { a: string; b: string; c: string; d: string; e: string };
+	options: IOption;
 }

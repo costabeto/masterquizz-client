@@ -30,7 +30,16 @@ const SocketContext = createContext<SocketContextData>({} as SocketContextData);
 
 const SocketProvider = ({ children }: ISocketProviderProps) => {
 	const [isConnected, setIsConnected] = useState(false);
-	const [currentRound, setCurrentRound] = useState<IRound | null>(null);
+	const [currentRound, setCurrentRound] = useState<IRound | null>({
+		question: 'Funcionou?',
+		options: {
+			a: 'Sim',
+			b: 'Não',
+			c: 'Talvez',
+			d: 'Depende',
+			e: 'Dev',
+		},
+	});
 	const [roundResult, setRoundResult] = useState<IRoundResult | null>(null);
 	const [gameResult, setGameResult] = useState<IRoundResult[] | null>(null);
 	const [user] = useState<IUser>(() => {
