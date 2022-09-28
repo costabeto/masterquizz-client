@@ -4,15 +4,13 @@ import { theme } from '../styles/theme';
 import { SocketProvider } from './useSocket';
 
 interface IAppProviderProps {
-  children: ReactNode;
+	children: ReactNode;
 }
 
-const AppProvider = ({ children }: IAppProviderProps) => {
-  return (
-    <ChakraProvider theme={theme}>
-      <SocketProvider>{children}</SocketProvider>
-    </ChakraProvider>
-  );
-};
+const AppProvider = ({ children }: IAppProviderProps) => (
+	<ChakraProvider theme={theme}>
+		<SocketProvider>{children}</SocketProvider>
+	</ChakraProvider>
+);
 
 export default AppProvider;
