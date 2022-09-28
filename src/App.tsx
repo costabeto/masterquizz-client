@@ -1,7 +1,5 @@
 import Lobby from './pages/Lobby';
 
-const Home = () => {
-  return <Lobby />;
-};
+const Home = () => <Lobby />;
 
 export default Home;
