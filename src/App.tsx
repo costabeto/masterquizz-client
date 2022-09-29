@@ -1,10 +1,14 @@
 import Question from './pages/Question';
 import { useSocket } from './hooks/useSocket';
 import Lobby from './pages/Lobby';
+import RoundResult from './pages/RoundResult';
 
 const Home = () => {
-	const { currentRound } = useSocket();
+	const { currentRound, roundResult } = useSocket();
 
+	if (roundResult) {
+		return <RoundResult result={roundResult} />;
+	}
 	if (currentRound) {
 		return <Question currentRound={currentRound} />;
 	}
