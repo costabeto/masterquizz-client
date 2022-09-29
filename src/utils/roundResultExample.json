@@ -1,0 +1,27 @@
+{
+	"question": "Pergunta teste, então essa foi boa",
+	"round": 0,
+	"correctAnswer": "b",
+	"answers": [
+		{
+			"user": "Test",
+			"answer": "b"
+		},
+		{
+			"user": "Test",
+			"answer": "a"
+		},
+		{
+			"user": "Test",
+			"answer": "c"
+		},
+		{
+			"user": "Test",
+			"answer": "d"
+		},
+		{
+			"user": "Test",
+			"answer": "e"
+		}
+	]
+}

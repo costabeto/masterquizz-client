@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { useToast } from '@chakra-ui/react';
 import { faker } from '@faker-js/faker';
 import {
@@ -46,35 +47,8 @@ const SocketProvider = ({ children }: ISocketProviderProps) => {
 		return JSON.parse(localUser) as IUser;
 	});
 	const [isConnected, setIsConnected] = useState(false);
-	const [currentRound, setCurrentRound] = useState<IRound | null>({
-		question: 'Funcionou?',
-		options: {
-			a: 'Sim',
-			b: 'Não',
-			c: 'Talvez',
-			d: 'Depende',
-			e: 'Dev',
-		},
-	});
-	const [roundResult, setRoundResult] = useState<IRoundResult | null>({
-		question: 'Pergunta teste, então essa foi boa',
-		round: 0,
-		correctAnswer: 'b',
-		answers: [
-			{
-				user: user.name,
-				answer: 'a',
-			},
-			{
-				user: 'Grace',
-				answer: 'b',
-			},
-			{
-				user: 'Hoper',
-				answer: 'c',
-			},
-		],
-	});
+	const [currentRound, setCurrentRound] = useState<IRound | null>(null);
+	const [roundResult, setRoundResult] = useState<IRoundResult | null>(null);
 	const [gameResult, setGameResult] = useState<IRoundResult[] | null>(null);
 
 	const [userList, setUserList] = useState<IUser[]>([]);
@@ -109,14 +83,19 @@ const SocketProvider = ({ children }: ISocketProviderProps) => {
 		});
 
 		socket.on('begin-round', (arg: IRound) => {
+			console.log('begin-round', arg);
+			setGameResult(null);
+			setRoundResult(null);
 			setCurrentRound(arg);
 		});
 
 		socket.on('round-result', (arg: IRoundResult) => {
+			console.log('round-result', arg);
 			setRoundResult(arg);
 		});
 
 		socket.on('game-result', (arg: IRoundResult[]) => {
+			console.log('game-result', arg);
 			setGameResult(arg);
 		});
 

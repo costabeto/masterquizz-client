@@ -1,0 +1,10 @@
+{
+	"question": "Funcionou?",
+	"options": {
+		"a": "Sim",
+		"b": "Não",
+		"c": "Talvez",
+		"d": "Depende",
+		"e": "Dev"
+	}
+}
