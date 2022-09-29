@@ -17,6 +17,7 @@ const Question = ({ currentRound }: IQuestion) => {
 		if (!user) return;
 		const answer = {
 			user: user.id,
+			name: user.name,
 			answer: result,
 		};
 		socket.emit('answer', answer);

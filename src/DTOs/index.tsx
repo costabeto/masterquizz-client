@@ -5,6 +5,7 @@ export interface IUser {
 
 export interface IRoundResultAnswer {
 	user: string;
+	name: string;
 	answer: string;
 }
 

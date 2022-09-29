@@ -2,19 +2,24 @@ import { Box, Icon, Stack, Text } from '@chakra-ui/react';
 import { useMemo } from 'react';
 import { MdCheckCircle, MdClose } from 'react-icons/md';
 import { IRoundResultAnswer } from '../../DTOs';
+import { useSocket } from '../../hooks/useSocket';
 
 interface IAnswerProps extends IRoundResultAnswer {
 	correctAnswer: string;
 }
 
 const Answer = ({
-	data: { answer, user, correctAnswer },
+	data: { answer, name, correctAnswer },
 }: {
 	data: IAnswerProps;
 }) => {
+	const { user } = useSocket();
+
+	const isUser = useMemo(() => user && user?.name === name, [name, user]);
+
 	const userName = useMemo(
-		() => user[0].toUpperCase() + user.slice(1, user.length),
-		[user]
+		() => name[0].toUpperCase() + name.slice(1, name.length),
+		[name]
 	);
 
 	return (
@@ -26,7 +31,9 @@ const Answer = ({
 			justify="space-between"
 			align="center"
 		>
-			<Text fontSize="xl">{userName}</Text>
+			<Text fontSize="xl">
+				{userName} {isUser && ' (Você)'}
+			</Text>
 
 			<Stack direction="row" justify="space-between" align="center" w="100px">
 				<Text fontSize="3xl" textTransform="uppercase">

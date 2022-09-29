@@ -14,7 +14,7 @@ const animationKeyframes = keyframes`
 const animation = `${animationKeyframes} 0.5s ease-in-out infinite`;
 
 const Header = () => {
-	const { user, isConnected } = useSocket();
+	const { user, isConnected, socket } = useSocket();
 
 	const userName = useMemo(
 		() =>
@@ -63,6 +63,8 @@ const Header = () => {
 						justify="center"
 						align="center"
 						border="1px solid rgba(255,255,255,0.6)"
+						onClick={() => socket.emit('start-game')}
+						cursor="pointer"
 					>
 						<Icon as={MdVideogameAsset} fontSize="4xl" color="white" />
 					</Flex>
