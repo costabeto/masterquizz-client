@@ -29,19 +29,6 @@ interface SocketContextData {
 const SocketContext = createContext<SocketContextData>({} as SocketContextData);
 
 const SocketProvider = ({ children }: ISocketProviderProps) => {
-	const [isConnected, setIsConnected] = useState(false);
-	const [currentRound, setCurrentRound] = useState<IRound | null>({
-		question: 'Funcionou?',
-		options: {
-			a: 'Sim',
-			b: 'Não',
-			c: 'Talvez',
-			d: 'Depende',
-			e: 'Dev',
-		},
-	});
-	const [roundResult, setRoundResult] = useState<IRoundResult | null>(null);
-	const [gameResult, setGameResult] = useState<IRoundResult[] | null>(null);
 	const [user] = useState<IUser>(() => {
 		const localUser = localStorage.getItem('@mq-user');
 
@@ -58,6 +45,38 @@ const SocketProvider = ({ children }: ISocketProviderProps) => {
 
 		return JSON.parse(localUser) as IUser;
 	});
+	const [isConnected, setIsConnected] = useState(false);
+	const [currentRound, setCurrentRound] = useState<IRound | null>({
+		question: 'Funcionou?',
+		options: {
+			a: 'Sim',
+			b: 'Não',
+			c: 'Talvez',
+			d: 'Depende',
+			e: 'Dev',
+		},
+	});
+	const [roundResult, setRoundResult] = useState<IRoundResult | null>({
+		question: 'Pergunta teste, então essa foi boa',
+		round: 0,
+		correctAnswer: 'b',
+		answers: [
+			{
+				user: user.name,
+				answer: 'a',
+			},
+			{
+				user: 'Grace',
+				answer: 'b',
+			},
+			{
+				user: 'Hoper',
+				answer: 'c',
+			},
+		],
+	});
+	const [gameResult, setGameResult] = useState<IRoundResult[] | null>(null);
+
 	const [userList, setUserList] = useState<IUser[]>([]);
 
 	const toast = useToast({
