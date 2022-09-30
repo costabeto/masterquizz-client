@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import { useToast } from '@chakra-ui/react';
 import { faker } from '@faker-js/faker';
 import {
@@ -83,19 +82,16 @@ const SocketProvider = ({ children }: ISocketProviderProps) => {
 		});
 
 		socket.on('begin-round', (arg: IRound) => {
-			console.log('begin-round', arg);
 			setGameResult(null);
 			setRoundResult(null);
 			setCurrentRound(arg);
 		});
 
 		socket.on('round-result', (arg: IRoundResult) => {
-			console.log('round-result', arg);
 			setRoundResult(arg);
 		});
 
 		socket.on('game-result', (arg: IRoundResult[]) => {
-			console.log('game-result', arg);
 			setGameResult(arg);
 		});
 
