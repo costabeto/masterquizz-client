@@ -63,6 +63,11 @@ const SocketProvider = ({ children }: ISocketProviderProps) => {
 			auth: {
 				user,
 			},
+			port: 5000,
+			path: '/',
+			extraHeaders: {
+				'Access-Control-Allow-Origin': '*',
+			},
 		});
 
 		return socketInstace;
