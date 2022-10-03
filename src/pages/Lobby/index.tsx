@@ -11,7 +11,7 @@ const Lobby = () => (
 		spacing="4"
 	>
 		<Text fontSize="4xl" fontWeight="600" textAlign="center">
-			Bem-vinde ao jogo mais top da minha rua!
+			Bem-vinde ao quiz mais top da minha rua!
 		</Text>
 
 		<Stack
@@ -20,23 +20,26 @@ const Lobby = () => (
 			flex="1"
 			direction="row"
 			justify="space-evenly"
-			align="center"
-			wrap="wrap-reverse"
+			align="flex-start"
+			wrap="wrap"
 			spacing="2"
-			gap="2"
+			gap="4"
 		>
-			<Stack minW="300px">
+			<Stack maxW="450px" spacing="4">
 				<Text fontSize="2xl" fontWeight="600" textAlign="center">
 					Instruções do jogo
 				</Text>
 				<Text fontSize="xl" fontWeight="400" textAlign="center">
-					Fugiat irure aliqua eu proident pariatur consectetur velit.
+					O jogo irá iniciar assim que o dono da sala definir.
 				</Text>
 				<Text fontSize="xl" fontWeight="400" textAlign="center">
-					Fugiat irure aliqua eu proident pariatur consectetur velit.
+					As perguntas serão de múltipla escolha.
 				</Text>
 				<Text fontSize="xl" fontWeight="400" textAlign="center">
-					Fugiat irure aliqua eu proident pariatur consectetur velit.
+					Serão 10 perguntas no total.
+				</Text>
+				<Text fontSize="xl" fontWeight="400" textAlign="center">
+					Ao final do jogo você poderá ver os resultados.
 				</Text>
 			</Stack>
 
