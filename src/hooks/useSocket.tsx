@@ -63,8 +63,7 @@ const SocketProvider = ({ children }: ISocketProviderProps) => {
 			auth: {
 				user,
 			},
-			port: 5000,
-			path: '/',
+			transports: ['websocket'],
 			extraHeaders: {
 				'Access-Control-Allow-Origin': '*',
 			},
