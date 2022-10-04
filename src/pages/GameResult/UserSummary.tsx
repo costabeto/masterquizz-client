@@ -47,7 +47,7 @@ const UserSummary = ({
 					value={correctAnswerProportion}
 				/>
 
-				<Text w="80px" fontSize="xl" fontWeight="600">
+				<Text w="90px" fontSize="xl" fontWeight="600">
 					{correctAnswers.length} / {results.length}
 				</Text>
 			</Stack>
